@@ -1,0 +1,26 @@
+package com.rule
+import com.ashokeit.dto.CitizenDto;
+
+import com.ashokeit.dto.PlanDto;
+
+rule "Not an Employee"
+	when 
+		( citizen: CitizenDto(planName=="SNAP",isEmployeed==false)) and 
+		(plan: PlanDto())
+	then
+		     plan.setPlanStatus("APPROVED");
+			 plan.setPlantStartDate("28-jan-2021");
+			 plan.setPalnEndDate("29-Mar-2023");
+			 plan.setBenitfitAmt(50000.0);
+	end
+	
+	
+rule "Is Employee"
+	when 
+		( citizen: CitizenDto(planName=="SNAP",isEmployeed==true)) and 
+		(plan: PlanDto())
+	then
+		    plan.setPlanStatus("DN");
+			plan.setDenialReason("Salaried Employee");
+	end
+	
